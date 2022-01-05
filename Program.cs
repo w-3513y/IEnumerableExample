@@ -4,16 +4,10 @@ using System.Linq;
 
 namespace IEnumerableExample
 {
-    class IEnumExample
+    class Program
     {
-        private readonly List<int> listExample = new();
-
-        public IEnumExample()
-        {
-            InsertList();
-        }
-
-        void InsertList()
+        static private readonly List<int> listExample = new();
+        public static void InsertList()
         {
             System.Console.WriteLine($"insertList");
             for (int x = 0; x < 900000001; x++)
@@ -23,53 +17,41 @@ namespace IEnumerableExample
             System.Console.WriteLine($"finishList");
         }
 
-        public IEnumerable<int> notToListReturn()
+        static public IEnumerable<int> notToListReturn()
         {
-            return listExample.Where(x => x > 0);
+            var result = listExample.Where(x => x > 0);
+            return result.Select(p => {return p;});
         }
 
-
-        public IEnumerable<int> toListReturn()
+        static public IEnumerable<int> toListReturn()
         {
-            return listExample.Where(x => x > 0).ToList();
+            var result = listExample.Where(x => x > 0);
+            return result.Select(p => {return p;}).ToList();
         }
 
-        public void WriteNotToList()
+        static public void WriteNotToList()
         {
             Console.WriteLine($"notToListStart");
             var result = notToListReturn();
-            Console.WriteLine(result.Count());
-            foreach (var str in result)
-            {
-                //Console.WriteLine(str);
-            }
+            //Console.WriteLine(result.Count());
             System.Console.WriteLine($"notToListFinish");
         }
 
-        public void WriteToList()
+        static public void WriteToList()
         {
             System.Console.WriteLine($"toListStart");
             var result = toListReturn();
-            Console.WriteLine(result.Count());
-            foreach (var str in result)
-            {
-                //Console.WriteLine(str);
-            }
+            //Console.WriteLine(result.Count());
             System.Console.WriteLine($"toListfinish");
         }
-    }
 
-    class Program
-    {
         static void Main(string[] args)
         {
-            IEnumExample example = new();
+            InsertList();
             //5490 MB RAM usage
-            System.Console.WriteLine("notToList: ");
-            example.WriteNotToList();
-           //6000 MB RAM usage
-            System.Console.WriteLine("ToList(): ");
-            example.WriteToList();
+            //WriteNotToList(); //comment to run WriteToList
+            //6000 MB RAM usage
+            WriteToList(); //comment to run WriteNotToList
         }
     }
 }
