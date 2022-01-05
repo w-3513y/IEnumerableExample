@@ -1,65 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace IEnumerableExample
 {
     class IEnumExample
     {
-        private readonly List<int> teste = new();
-        Stopwatch stopwatch = new Stopwatch();
+        private readonly List<int> listExample = new();
 
         public IEnumExample()
         {
-            InsertList();            
-            stopwatch.Start();
+            InsertList();
         }
 
         void InsertList()
         {
-            TimeSpan ts = stopwatch.Elapsed;
-            System.Console.WriteLine($"insertList: {stopwatch.ElapsedMilliseconds}");
+            System.Console.WriteLine($"insertList");
             for (int x = 0; x < 900000001; x++)
             {
-                teste.Add(x);
+                listExample.Add(x);
             }
-            System.Console.WriteLine($"finish: {stopwatch.ElapsedMilliseconds}");
+            System.Console.WriteLine($"finishList");
         }
 
-        public IEnumerable<int> Teste()
+        public IEnumerable<int> notToListReturn()
         {
-            return teste.Where(x => x > 0);
+            return listExample.Where(x => x > 0);
         }
 
 
-        public IEnumerable<int> Teste2()
+        public IEnumerable<int> toListReturn()
         {
-            return teste.Where(x => x > 0).ToList();
+            return listExample.Where(x => x > 0).ToList();
         }
 
-        public void Escreve()
+        public void WriteNotToList()
         {
-            System.Console.WriteLine($"start: {DateTime.Now:HH:mm:ss}");
-            var retorno = Teste();
-            Console.WriteLine(retorno.Count());
-            foreach (var str in retorno)
+            Console.WriteLine($"notToListStart");
+            var result = notToListReturn();
+            Console.WriteLine(result.Count());
+            foreach (var str in result)
             {
                 //Console.WriteLine(str);
             }
-            System.Console.WriteLine($"finish: {DateTime.Now:HH:mm:ss}");
+            System.Console.WriteLine($"notToListFinish");
         }
 
-        public void Escreve2()
+        public void WriteToList()
         {
-            System.Console.WriteLine($"start: {DateTime.Now:HH:mm:ss}");
-            var retorno = Teste2();
-            Console.WriteLine(retorno.Count());
-            foreach (var str in retorno)
+            System.Console.WriteLine($"toListStart");
+            var result = toListReturn();
+            Console.WriteLine(result.Count());
+            foreach (var str in result)
             {
                 //Console.WriteLine(str);
             }
-            System.Console.WriteLine($"finish: {DateTime.Now:HH:mm:ss}");
+            System.Console.WriteLine($"toListfinish");
         }
     }
 
@@ -68,10 +64,12 @@ namespace IEnumerableExample
         static void Main(string[] args)
         {
             IEnumExample example = new();
+            //5490 MB RAM usage
             System.Console.WriteLine("notToList: ");
-            example.Escreve();
+            example.WriteNotToList();
+           //6000 MB RAM usage
             System.Console.WriteLine("ToList(): ");
-            example.Escreve2();
+            example.WriteToList();
         }
     }
 }
