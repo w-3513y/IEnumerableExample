@@ -42,7 +42,7 @@ namespace IEnumerableExample
             System.Console.WriteLine($"notToListStart");
             var result = notToListReturn();            
             //System.Console.WriteLine(result.Count());
-            //counter retorna zero - só irá retornar valor quando vc fizer um ToList() ou um Count() que irá iterar os valores
+            //counter return zero - return value if you use Count()
             System.Console.WriteLine("counter:" + counter);
             System.Console.WriteLine($"notToListFinish");
         }
@@ -51,7 +51,7 @@ namespace IEnumerableExample
         {
             System.Console.WriteLine($"toListStart");
             var result = toListReturn();
-            //counter retorna a quantidade de values, não precisa usar o count()
+            //counter return values
             //System.Console.WriteLine(result.Count());
             System.Console.WriteLine("counter:" + counter);
             System.Console.WriteLine($"toListfinish");
